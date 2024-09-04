@@ -1,12 +1,12 @@
-const pingController = (req, res) => {
-  res.writeHead(200, { "Content-Type": "text/plain" });
-  res.end("pong");
-};
+function pingController(request, response) {
+  response.writeHead(200, { "Content-Type": "text/plain" });
+  response.end("pong");
+}
 
-const helloController = (req, res) => {
-  res.writeHead(200, { "Content-Type": "text/plain" });
-  res.end("Hello world");
-};
+function helloController(request, response) {
+  response.writeHead(200, { "Content-Type": "text/plain" });
+  response.end("Hello world");
+}
 
 module.exports = {
   pingController,

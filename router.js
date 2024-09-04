@@ -1,27 +1,35 @@
 const { helloController, pingController } = require("./controller");
+const HTTP_METHODS = {
+  GET: "GET",
+  POST: "POST",
+  PUT: "PUT",
+  DELETE: "DELETE",
+};
 
-const router = (req, res) => {
-  switch (req.url) {
+function routing(request, response) {
+  switch (request.url) {
     case "/ping":
-      if (req.method === "GET") {
-        pingController(req, res);
+      if (request.method === HTTP_METHODS.GET) {
+        handlePing(request, response);
       } else {
-        res.writeHead(405, { "Content-Type": "text/plain" });
-        res.end("Method not allowed");
+        response.writeHead(405);
+        response.end("Method not allowed");
       }
       break;
     case "/":
-      if (req.method === "GET") {
-        helloController(req, res);
+      if (request.method === HTTP_METHODS.GET) {
+        handleHello(request, response);
       } else {
-        res.writeHead(404, { "Content-Type": "text/plain" });
-        res.end("No Element");
+        response.writeHead(404);
+        response.end("No Element");
       }
+      break;
     default:
-      console.log(req.url);
+      response.writeHead(400);
+      response.end("Bad Request");
   }
-};
+}
 
 module.exports = {
-  router,
+  routing,
 };
